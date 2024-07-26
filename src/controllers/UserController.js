@@ -1,5 +1,6 @@
 const UserService = require('../services/UserService');
 const JwtService = require('../services/JwtService');
+const bcrypt = require('bcrypt')
 
 const createUser = async (req, res) => {
     try {
@@ -69,6 +70,7 @@ const updateUser = async (req, res) =>{
     try{
         const userId = req.params.id
         const data = req.body
+        data.password = bcrypt.hashSync(data.password, 10)
         if(userId === null){
             return res.status(404).json({
                 status:"Error",
@@ -113,19 +115,23 @@ const getAllUser = async(req, res)=>{
     }
 }
 
-// const getUser = async(req, res) =>{
-//     try{
-//         const userId = User.findOne({
-//             _id: id
-//         })
-//         if(!userId){
-//             return res.status(404).json({
-//                 status: "Error",
-//                 message: "User khong ton tai"
-//             })
-//         }
-//     }
-// }
+const getUser = async(req, res) =>{
+    try{
+        const userId = req.params.id
+        if(!userId){
+            return res.status(404).json({
+                status: "Error",
+                message: "User khong ton tai"
+            })
+        }
+        response = await UserService.getUser(userId)
+        return res.status(200).json(response)
+    } catch (e) {
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
 
 const refreshToken = async (req, res) => {
     try {
@@ -166,4 +172,6 @@ module.exports = {
     deleteUser,
     refreshToken,
     logoutUser,
+    getUser,
+    getAllUser
 }

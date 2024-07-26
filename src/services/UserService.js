@@ -129,10 +129,11 @@ const deleteUser = (id) =>{
 const getAllUser = (data) =>{
     return new Promise(async (resolve, reject)=>{
         try{
-            response = await User.getAllUser()
+            data = await User.find()
             resolve({
                 status: "OK",
-                message:"Thanh cong"
+                message:"Thanh cong",
+                data: data
             })
         } catch(e){
             reject(e)
@@ -142,20 +143,24 @@ const getAllUser = (data) =>{
 
 const getUser = (id)=>{
     return new Promise(async (resolve, reject)=>{
-        const checkUser = User.findOne({
-            _id: id
-        })
-        if(!checkUser){
-            resolve({
-                status: "Error",
-                message:"USER KHONG TON TAI"
+        try{
+            const checkUser = await User.findOne({
+                _id: id
             })
+            if(!checkUser){
+                resolve({
+                    status: "Error",
+                    message:"USER KHONG TON TAI"
+                })
+            }
+            resolve({
+                status:"OK",
+                message: "Thanh cong",
+                data: checkUser
+            })
+        } catch(e) {
+            reject(e)
         }
-        resolve({
-            status:"OK",
-            message: "Thanh cong",
-            data: checkUser
-        })
     })
 }
 

@@ -1,0 +1,52 @@
+const jwt = require('jsonwebtoken')
+const fs = require('fs')
+
+const publicKey = fs.readFileSync('C:/Users/ctoan/Downloads/Compressed/New folder/public_key.pem', 'utf-8')
+
+const authMiddleware = (req, res, next) => {
+    const token = req.headers.cookie.split('=')[1]
+    jwt.verify(token, publicKey, (err, user) => {
+        if(err) {
+            return res.status(404).json({
+                status: "error",
+                message: "the authemation"
+            })
+        }
+        if(user?.isAdmin)
+            next()
+        else {
+            return res.status(404).json({
+                status: "error",
+                message: "the authemation"
+            })
+        }
+    })
+}
+
+const authUserMiddleware = (req, res, next) => {
+    const token = req.headers.cookie.split('=')[1]
+    const userId = req.params.id
+    jwt.verify(token, publicKey, (err, user) => {
+        if(err) {
+            return res.status(404).json({
+                status: "error",
+                message: "the authemation"
+            })
+        }
+        if(user?.isAdmin || user?.id === userId) {
+            next()
+        }
+        else{ 
+            return res.status(404).json({
+                status: "error",
+                message: "the authemation"
+            })
+        }
+    })
+}
+
+module.exports = {
+    authMiddleware,
+    authUserMiddleware
+}
+
