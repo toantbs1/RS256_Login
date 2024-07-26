@@ -53,7 +53,7 @@ const genneralAccessToken = async (payload) => {
 const genneralRefreshToken = async (payload) => {
     // Tạo mã iat và exp
     let iat = Math.floor(Date.now() / 1000);
-    let expRT = iat + 31536000; //Hết hạn sau 365d
+    let expRT = iat + 86400; //Hết hạn sau 1d
     let refreshHead = base64UrlEncode(JSON.stringify(Header))
     let refreshPay = base64UrlEncode(JSON.stringify({
         ...payload,
