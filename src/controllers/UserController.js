@@ -70,7 +70,9 @@ const updateUser = async (req, res) =>{
     try{
         const userId = req.params.id
         const data = req.body
-        data.password = bcrypt.hashSync(data.password, 10)
+        if(req.body.password != null){
+            data.password = bcrypt.hashSync(data.password, 10)
+        }   
         if(userId === null){
             return res.status(404).json({
                 status:"Error",

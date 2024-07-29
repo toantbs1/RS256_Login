@@ -17,7 +17,7 @@ const authMiddleware = (req, res, next) => {
         else {
             return res.status(404).json({
                 status: "error",
-                message: "the authemation"
+                message: "Không phải là admin"
             })
         }
     })
@@ -39,7 +39,7 @@ const authUserMiddleware = (req, res, next) => {
         else{ 
             return res.status(404).json({
                 status: "error",
-                message: "the authemation"
+                message: "Không đủ quyền"
             })
         }
     })

@@ -116,7 +116,7 @@ const refreshTokenJwtService = async (token) => {
             //         message: 'The authematication token is invalid'
             //     })
             // }
-            jwt.verify(token, publicKey, { algorithms: ['RS256'] }, async (err, user) => {
+            jwt.verify(token, publicKey, { algorithms: 'RS256' }, async (err, user) => {
                 if (err) {
                     resolve ({
                         status: "error",
