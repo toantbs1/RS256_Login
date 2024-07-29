@@ -3,5 +3,4 @@
 node_modules/
 jspm_packages/
 
-private_key.pem
-public_key.pem
+*.pem
