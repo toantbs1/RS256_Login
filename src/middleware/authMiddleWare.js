@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
 
-const publicKey = fs.readFileSync('C:/Users/ctoan/Downloads/Compressed/New folder/public_key.pem', 'utf-8')
+const publicKey = fs.readFileSync('./public_key.pem', 'utf-8')
 
 const authMiddleware = (req, res, next) => {
     const token = req.headers.cookie.split('=')[1]

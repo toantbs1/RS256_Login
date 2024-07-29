@@ -36,15 +36,15 @@ const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
 });
 
 // Lưu khóa công khai vào file
-fs.writeFileSync('public_key.pem', publicKey);
+fs.writeFileSync('./public_key.pem', publicKey);
 
 // Lưu khóa riêng tư vào file
-fs.writeFileSync('private_key.pem', privateKey);
+fs.writeFileSync('./private_key.pem', privateKey);
 
-const Header = {
-    alg:'RS256',
-    typ:'JWT'
-}
+// const Header = {
+//     alg:'RS256',
+//     typ:'JWT'
+// }
 
 const genneralAccessToken = async (payload) => {
     // // Tạo mã iat và exp
